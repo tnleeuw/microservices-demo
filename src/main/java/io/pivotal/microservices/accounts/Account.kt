@@ -21,14 +21,15 @@ class Account : Serializable {
     @Id
     protected var id: Long? = null
 
-    var number: String
+    lateinit var number: String
         protected set
 
     @Column(name = "name")
-    var owner: String
+    lateinit var owner: String
         protected set
 
     protected var balance: BigDecimal
+        get() = field.setScale(2, BigDecimal.ROUND_HALF_EVEN)
 
     /**
      * Default constructor for JPA only.
@@ -38,7 +39,7 @@ class Account : Serializable {
     }
 
     constructor(number: String, owner: String) {
-        id = getNextId()
+        id = nextId
         this.number = number
         this.owner = owner
         balance = BigDecimal.ZERO
@@ -58,16 +59,12 @@ class Account : Serializable {
         this.id = id
     }
 
-    fun getBalance(): BigDecimal {
-        return balance.setScale(2, BigDecimal.ROUND_HALF_EVEN)
-    }
-
     fun withdraw(amount: BigDecimal) {
-        balance.subtract(amount)
+        balance = balance.subtract(amount)
     }
 
     fun deposit(amount: BigDecimal) {
-        balance.add(amount)
+        balance = balance.add(amount)
     }
 
     override fun toString(): String {
@@ -78,8 +75,6 @@ class Account : Serializable {
 
         private val serialVersionUID = 1L
 
-        var nextId: Long? = 0L
-
         /**
          * This is a very simple, and non-scalable solution to generating unique
          * ids. Not recommended for a real application. Consider using the
@@ -87,11 +82,11 @@ class Account : Serializable {
 
          * @return The next available id.
          */
-        protected fun getNextId(): Long? {
-            synchronized(nextId) {
-                return nextId++
+        var nextId: Long = 0L
+            get() = synchronized(field) {
+                return field++
             }
-        }
+
     }
 
 }

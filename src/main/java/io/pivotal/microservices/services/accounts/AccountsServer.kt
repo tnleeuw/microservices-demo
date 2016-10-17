@@ -23,7 +23,7 @@ import io.pivotal.microservices.accounts.AccountsConfiguration
 @EnableAutoConfiguration
 @EnableDiscoveryClient
 @Import(AccountsConfiguration::class)
-class AccountsServer {
+open class AccountsServer {
 
     @Autowired
     protected var accountRepository: AccountRepository? = null

@@ -92,8 +92,9 @@ abstract class AbstractAccountControllerTests {
     }
 
     companion object {
-
+        @JvmStatic
         protected val ACCOUNT_1 = "123456789"
+        @JvmStatic
         protected val ACCOUNT_1_NAME = "Keri Lee"
     }
 }

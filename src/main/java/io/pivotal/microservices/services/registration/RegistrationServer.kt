@@ -11,18 +11,20 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer
  */
 @SpringBootApplication
 @EnableEurekaServer
-object RegistrationServer {
+open class RegistrationServer {
 
-    /**
-     * Run the application using Spring Boot and an embedded servlet engine.
+    companion object {
+        /**
+         * Run the application using Spring Boot and an embedded servlet engine.
 
-     * @param args
-     * *            Program arguments - ignored.
-     */
-    @JvmStatic fun main(args: Array<String>) {
-        // Tell server to look for registration.properties or registration.yml
-        System.setProperty("spring.config.name", "registration-server")
+         * @param args
+         * *            Program arguments - ignored.
+         */
+        @JvmStatic fun main(args: Array<String>) {
+            // Tell server to look for registration.properties or registration.yml
+            System.setProperty("spring.config.name", "registration-server")
 
-        SpringApplication.run(RegistrationServer::class.java, *args)
+            SpringApplication.run(RegistrationServer::class.java, *args)
+        }
     }
 }

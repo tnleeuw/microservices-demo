@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(useDefaultFilters = false) // Disable component scanner
-class WebServer {
+open class WebServer {
 
     /**
      * A customized RestTemplate that has the ribbon load balancer build in.
@@ -27,7 +27,7 @@ class WebServer {
      */
     @LoadBalanced
     @Bean
-    internal fun restTemplate(): RestTemplate {
+    open internal fun restTemplate(): RestTemplate {
         return RestTemplate()
     }
 
@@ -37,7 +37,7 @@ class WebServer {
      * @return A new service instance.
      */
     @Bean
-    fun accountsService(): WebAccountsService {
+    open fun accountsService(): WebAccountsService {
         return WebAccountsService(ACCOUNTS_SERVICE_URL)
     }
 
@@ -47,12 +47,12 @@ class WebServer {
      * @return
      */
     @Bean
-    fun accountsController(): WebAccountsController {
+    open fun accountsController(): WebAccountsController {
         return WebAccountsController(accountsService())
     }
 
     @Bean
-    fun homeController(): HomeController {
+    open fun homeController(): HomeController {
         return HomeController()
     }
 

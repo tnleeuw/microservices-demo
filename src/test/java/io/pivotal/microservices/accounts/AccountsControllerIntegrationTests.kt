@@ -18,12 +18,14 @@ import io.pivotal.microservices.services.accounts.AccountsServer
  */
 @SpringBootApplication
 @Import(AccountsConfiguration::class)
-internal object AccountsMain {
-    @JvmStatic fun main(args: Array<String>) {
-        // Tell server to look for accounts-server.properties or
-        // accounts-server.yml
-        System.setProperty("spring.config.name", "accounts-server")
-        SpringApplication.run(AccountsMain::class.java, *args)
+internal open class AccountsMain {
+    companion object {
+        @JvmStatic fun main(args: Array<String>) {
+            // Tell server to look for accounts-server.properties or
+            // accounts-server.yml
+            System.setProperty("spring.config.name", "accounts-server")
+            SpringApplication.run(AccountsMain::class.java, *args)
+        }
     }
 }
 
@@ -35,5 +37,5 @@ internal object AccountsMain {
  * @author Paul Chapman
  */
 @RunWith(SpringJUnit4ClassRunner::class)
-@SpringApplicationConfiguration(classes = AccountsMain::class)
+@SpringApplicationConfiguration(classes = arrayOf(AccountsMain::class))
 class AccountsControllerIntegrationTests : AbstractAccountControllerTests()

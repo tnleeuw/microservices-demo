@@ -45,7 +45,7 @@ object Main {
         }
     }
 
-    protected fun usage() {
+    fun usage() {
         println("Usage: java -jar ... <server-name> [server-port]")
         println("     where server-name is 'reg', 'registration', " + "'accounts' or 'web' and server-port > 1024")
     }

@@ -26,7 +26,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
 @EntityScan("io.pivotal.microservices.accounts")
 @EnableJpaRepositories("io.pivotal.microservices.accounts")
 @PropertySource("classpath:db-config.properties")
-class AccountsConfiguration {
+open class AccountsConfiguration {
 
     protected var logger: Logger
 
@@ -39,7 +39,7 @@ class AccountsConfiguration {
      * testing
      */
     @Bean
-    fun dataSource(): DataSource {
+    open fun dataSource(): DataSource {
         logger.info("dataSource() invoked")
 
         // Create an in-memory H2 relational database containing some demo

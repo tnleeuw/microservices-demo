@@ -16,7 +16,7 @@ interface AccountRepository : Repository<Account, Long> {
      * *
      * @return The account if found, null otherwise.
      */
-    fun findByNumber(accountNumber: String): Account
+    fun findByNumber(accountNumber: String): Account?
 
     /**
      * Find accounts whose owner name contains the specified string

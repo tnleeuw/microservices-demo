@@ -17,15 +17,13 @@ class Account
 protected constructor() {
 
     protected var id: Long? = null
-    var number: String
+    lateinit var number: String
         protected set
-    var owner: String
+    lateinit var owner: String
         protected set
-    protected var balance: BigDecimal
-
-    init {
-        balance = BigDecimal.ZERO
-    }
+    var balance: BigDecimal = BigDecimal.ZERO
+        get() = field.setScale(2, BigDecimal.ROUND_HALF_EVEN)
+        set(value) { field = value.setScale(2, BigDecimal.ROUND_HALF_EVEN) }
 
     fun getId(): Long {
         return id!!
@@ -39,15 +37,6 @@ protected constructor() {
      */
     protected fun setId(id: Long) {
         this.id = id
-    }
-
-    fun getBalance(): BigDecimal {
-        return balance.setScale(2, BigDecimal.ROUND_HALF_EVEN)
-    }
-
-    protected fun setBalance(value: BigDecimal) {
-        balance = value
-        balance.setScale(2, BigDecimal.ROUND_HALF_EVEN)
     }
 
     override fun toString(): String {

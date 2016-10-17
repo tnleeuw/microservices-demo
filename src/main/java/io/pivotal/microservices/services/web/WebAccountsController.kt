@@ -26,7 +26,7 @@ class WebAccountsController(
         @Autowired
         protected var accountsService: WebAccountsService) {
 
-    protected var logger = Logger.getLogger(WebAccountsController::class.java!!.getName())
+    protected var logger = Logger.getLogger(WebAccountsController::class.java.getName())
 
     @InitBinder
     fun initBinder(binder: WebDataBinder) {
@@ -55,14 +55,14 @@ class WebAccountsController(
         logger.info("web-service byOwner() invoked: " + name)
 
         val accounts = accountsService.byOwnerContains(name)
-        logger.info("web-service byOwner() found: " + accounts!!)
+        logger.info("web-service byOwner() found: " + accounts ?: "<nothing found>")
         model.addAttribute("search", name)
         if (accounts != null)
             model.addAttribute("accounts", accounts)
         return "accounts"
     }
 
-    @RequestMapping(value = "/accounts/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/accounts/search", method = arrayOf(RequestMethod.GET))
     fun searchForm(model: Model): String {
         model.addAttribute("searchCriteria", SearchCriteria())
         return "accountSearch"
@@ -80,10 +80,12 @@ class WebAccountsController(
 
         val accountNumber = criteria.accountNumber
         if (StringUtils.hasText(accountNumber)) {
-            return byNumber(model, accountNumber)
+            return byNumber(model, accountNumber!!)
         } else {
+            // A valid SearchCriteria has either accountNumber not null, or searchText not null.
+            // Since accountNumber was empty, searchText must be non-null.
             val searchText = criteria.searchText
-            return ownerSearch(model, searchText)
+            return ownerSearch(model, searchText!!)
         }
     }
 }

@@ -25,7 +25,7 @@ class AccountsController
 @Autowired
 constructor(protected var accountRepository: AccountRepository) {
 
-    protected var logger = Logger.getLogger(AccountsController::class.java!!.getName())
+    protected var logger = Logger.getLogger(AccountsController::class.java.getName())
 
     init {
 
@@ -49,7 +49,7 @@ constructor(protected var accountRepository: AccountRepository) {
 
         logger.info("accounts-service byNumber() invoked: " + accountNumber)
         val account = accountRepository.findByNumber(accountNumber)
-        logger.info("accounts-service byNumber() found: " + account!!)
+        logger.info("accounts-service byNumber() found: " + account)
 
         if (account == null)
             throw AccountNotFoundException(accountNumber)
@@ -77,9 +77,9 @@ constructor(protected var accountRepository: AccountRepository) {
                 + partialName)
 
         val accounts = accountRepository.findByOwnerContainingIgnoreCase(partialName)
-        logger.info("accounts-service byOwner() found: " + accounts!!)
+        logger.info("accounts-service byOwner() found: " + accounts)
 
-        if (accounts == null || accounts.size == 0)
+        if (accounts.isEmpty())
             throw AccountNotFoundException(partialName)
         else {
             return accounts
