@@ -3,15 +3,19 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'spring-boot'
-
+apply plugin: 'kotlin'
 
 buildscript {
+    ext.kotlin_version = '1.0.4'
+
     dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
         classpath("org.springframework.boot:spring-boot-gradle-plugin:" + springBootVersion)
     }
 
     repositories {
-	mavenCentral()
+	    mavenCentral()
     }
 }
 
@@ -27,7 +31,8 @@ repositories {
 
 dependencies {
 
-    compile 'org.springframework.boot:spring-boot-starter:' + springBootVersion,
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            'org.springframework.boot:spring-boot-starter:' + springBootVersion,
             'org.springframework.boot:spring-boot-starter-web:' + springBootVersion,
             'org.springframework.boot:spring-boot-starter-thymeleaf:' + springBootVersion,
             'org.springframework.data:spring-data-commons:' + springDataCommonsVersion,
